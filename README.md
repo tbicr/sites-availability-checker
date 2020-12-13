@@ -4,9 +4,11 @@ In general site availability checker service workflow can be described with next
 
     scheduler worker -> redis queue -> availability check worker -> kafka -> transfer worker -> postgres 
 
-Sites for check stored in postgres db.
-Checker super simple and provide only regexp pattern setting.
-All code runs as jobs or cron jobs with [arq](https://arq-docs.helpmanual.io/).
+- Sites for check stored in postgres db.
+- Checker super simple and provide only regexp pattern setting.
+- All code runs as jobs or cron jobs with [arq](https://arq-docs.helpmanual.io/).
+- Major logic use IO so there are used asyncio libraries.
+- Data transfer use mostly batch processing.
 
 ## Start Service Locally
 
