@@ -31,7 +31,7 @@ async def fetch(client: httpx.AsyncClient, url: str) -> Tuple[Event, Optional[by
 
     except httpx.HTTPError as err:
         return (
-            Event(id=None, created_at=start, url=url, duration=time.time() - start),
+            Event(id=None, created_at=datetime.fromtimestamp(start), url=url, duration=time.time() - start),
             None,
         )
 

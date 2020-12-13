@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import httpx
 import pytest
 
@@ -9,6 +11,8 @@ async def test_fetch__ok(httpx_mock):
     httpx_mock.add_response(status_code=200, data=b"ok")
     async with httpx.AsyncClient() as client:
         check_result, content = await fetch(client, "http://test.com")
+    assert check_result.url == "http://test.com"
+    assert check_result.created_at > datetime(2020, 12, 12)
     assert check_result.status_code == 200
     assert check_result.duration > 0
     assert content == b"ok"
@@ -22,6 +26,8 @@ async def test_fetch__raise_timeout(httpx_mock):
     httpx_mock.add_callback(raise_timeout)
     async with httpx.AsyncClient() as client:
         check_result, content = await fetch(client, "http://test.com")
+    assert check_result.url == "http://test.com"
+    assert check_result.created_at > datetime(2020, 12, 12)
     assert check_result.status_code is None
     assert check_result.duration > 0
     assert content is None
