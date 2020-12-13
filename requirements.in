@@ -1,0 +1,7 @@
+psycopg2-binary
+httpx[http2]
+arq
+aioredis
+aiopg
+aiokafka
+python-dotenv
