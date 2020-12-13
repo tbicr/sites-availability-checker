@@ -1,0 +1,23 @@
+name: Tests
+
+on: push
+
+jobs:
+  black-check:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Up services with docker-compose
+        run: docker-compose up -d
+      - name: Add hosts for integration tests
+        run: sudo echo "127.0.0.1 postgres redis kafka" | sudo tee -a /etc/hosts
+      - name: Set up python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install requirements
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Run tests
+        run: pytest tests

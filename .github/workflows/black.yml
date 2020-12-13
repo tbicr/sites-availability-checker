@@ -1,0 +1,19 @@
+name: Black formater
+
+on: push
+
+jobs:
+  black-check:
+    name: Check black format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install black
+        run: pip install black -c requirements-dev.txt
+      - name: Run black check
+        run: black --check .
