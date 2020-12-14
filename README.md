@@ -12,13 +12,21 @@ In general site availability checker service workflow can be described with next
 
 ## Start Service Locally
 
+Simply start service:
+
     docker-compose up -d
+
+Site availability check worker can be scaled to multiple instances for better results:
+
+    docker-compose up -d --scale availability_checker=12
     
-    # add new site
+Add a new site:
+
     docker-compose exec postgres psql -U test -d site_checker -c \
         "INSERT INTO sites (url, regexp) VALUES ('https://python.org', 'python')"
     
-    # list check results in database (can be delayed to a few mins)
+List check results in database (can be delayed to a few mins):
+
     docker-compose exec postgres psql -U test -d site_checker -c \
         "SELECT * FROM events"
 

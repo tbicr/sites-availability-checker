@@ -120,6 +120,8 @@ async def shutdown(ctx):
 class AvailabilityCheckerWorkerSettings:
     redis_settings = arq.connections.RedisSettings(**config.REDIS_CONFIG)
     queue_name = "arq:queue:availability_check"
+    max_jobs = config.AVAILABILITY_CHECKER_MAX_JOBS
+    retry_jobs = False  # assume we can ignore failed checks and reschedule it next time
     on_startup = partial(startup, http=True, redis=True, kafka_producer=True)
     on_shutdown = shutdown
     functions = [availability_check]

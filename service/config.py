@@ -64,6 +64,7 @@ KAFKA_CONSUMER_CONFIG = {
 
 FETCH_TIMEOUT = 10  # seconds
 PG_FETCH_CHUNK_SIZE = 10000
+AVAILABILITY_CHECKER_MAX_JOBS = 50
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
